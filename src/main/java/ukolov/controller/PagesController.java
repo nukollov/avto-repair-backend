@@ -1,7 +1,7 @@
 package ukolov.controller;
 
+import org.springframework.web.bind.annotation.*;
 import ukolov.form.ServiceForm;
-import ukolov.form.UpdateServiceForm;
 import ukolov.entity.ServiceEntity;
 import ukolov.service.AvtoRepairService;
 import ukolov.service.ServiceService;
@@ -9,10 +9,6 @@ import ukolov.service.TypeServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -75,7 +71,7 @@ public class PagesController {
      * @return - редирект на главную страницу
      */
     @GetMapping("/deleteService/id={id}")
-    public RedirectView deleteService(@PathVariable Long id, Model model) {
+    public RedirectView deleteService(@PathVariable Long id) {
         serviceService.deleteById(id);
         return new RedirectView("/");
     }
@@ -86,20 +82,20 @@ public class PagesController {
      */
     @GetMapping("/editService/id={id}")
     public String loadEditService(@PathVariable Long id, Model model) {
-        model.addAttribute("updateServiceForm", new UpdateServiceForm());
-        model.addAttribute("service", serviceService.findById(id));
+        model.addAttribute("updateServiceForm", ServiceForm.builder().id(id).build());
         return "editService";
     }
 
     /**
      * метод редактирования услуши по id
-     * @param updateServiceForm - форма с новыми данными
+     * @param serviceForm - форма с новыми данными
      * @param id - id редактируемой услуги
      * @return - редирект на главную страницу
      */
     @PostMapping("/editService/{id}")
-    public RedirectView addExcursion(@ModelAttribute UpdateServiceForm updateServiceForm, @PathVariable Long id) {
-        serviceService.update(id, updateServiceForm);
+    public RedirectView updateExcursion(@ModelAttribute ServiceForm serviceForm, @PathVariable Long id) {
+        serviceForm.setId(id);
+        serviceService.update(serviceForm);
         return new RedirectView("/");
     }
 }

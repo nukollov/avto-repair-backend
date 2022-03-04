@@ -10,7 +10,7 @@
     <h1>Редактирование услуги</h1>
     <div style="width: 70%;">
         <hr>
-        <form action="#" th:action="@{/editService/{serviceId}/(serviceId=${service.id})}" th:object="${updateServiceForm}" method="post">
+        <form action="#" th:action="@{/editService/{serviceId}/(serviceId=${updateServiceForm.id})}" th:object="${updateServiceForm}" method="post">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default" style="width: 13%;">Время</span>
                 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" th:field="*{time}">
