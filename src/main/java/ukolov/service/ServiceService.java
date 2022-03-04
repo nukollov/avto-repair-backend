@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServiceService {
@@ -31,31 +32,35 @@ public class ServiceService {
     }
 
     public ServiceEntity findById(Long id) {
-        ServiceEntity service = serviceRepository.findById(id).get();
-        return service;
+        return serviceRepository.findById(id).orElse(null);
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         serviceRepository.deleteById(id);
     }
 
     @Transactional
-    public void save(ServiceForm serviceForm){
-        AvtoRepairEntity avtoRepairEntity = avtoRepairRepository.findById(serviceForm.getAutoRepairId()).get();
-        TypeServiceEntity typeServiceEntity = typeServiceRepository.findById(serviceForm.getTypeServiceId()).get();
-        ServiceEntity service = new ServiceEntity();
-        service.setPrice(serviceForm.getPrice());
-        service.setTime(serviceForm.getTime());
-        service.setAvtoRepair(avtoRepairEntity);
-        service.setTypeService(typeServiceEntity);
-        serviceRepository.save(service);
+    public void save(ServiceForm serviceForm) {
+        Optional<AvtoRepairEntity> avtoRepairEntity = avtoRepairRepository.findById(serviceForm.getAutoRepairId());
+        Optional<TypeServiceEntity> typeServiceEntity = typeServiceRepository.findById(serviceForm.getTypeServiceId());
+        if(avtoRepairEntity.isPresent() && typeServiceEntity.isPresent()) {
+            ServiceEntity service = ServiceEntity.builder()
+                    .price(serviceForm.getPrice())
+                    .time(serviceForm.getTime())
+                    .avtoRepair(avtoRepairEntity.get())
+                    .typeService(typeServiceEntity.get()).build();
+            serviceRepository.save(service);
+        }
     }
 
     @Transactional
-    public void update(Long id, UpdateServiceForm updateServiceForm){
-        ServiceEntity serviceEntity = serviceRepository.findById(id).get();
-        serviceEntity.setTime(updateServiceForm.getTime());
-        serviceEntity.setPrice(updateServiceForm.getPrice());
-        serviceRepository.save(serviceEntity);
+    public void update(Long id, UpdateServiceForm updateServiceForm) {
+        Optional<ServiceEntity> serviceEntityOptional =  serviceRepository.findById(id);
+        if(serviceEntityOptional.isPresent()){
+            ServiceEntity serviceEntity = serviceEntityOptional.get();
+            serviceEntity.setTime(updateServiceForm.getTime());
+            serviceEntity.setPrice(updateServiceForm.getPrice());
+            serviceRepository.save(serviceEntity);
+        }
     }
 }
