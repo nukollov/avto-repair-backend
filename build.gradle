@@ -18,12 +18,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     compileOnly 'org.projectlombok:lombok:1.18.4'
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
+
+    testImplementation 'junit:junit:4.11'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.2'
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
 }
