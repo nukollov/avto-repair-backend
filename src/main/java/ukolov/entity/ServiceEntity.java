@@ -16,6 +16,9 @@ import javax.persistence.*;
 @Setter
 @Table(name = "service")
 
+/**
+ * Класс описывающий сущность Услуги
+ * */
 public class ServiceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -16,6 +16,10 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "type_service")
+
+/**
+ * Класс, описывающий сущность Вида услуги
+ * */
 public class TypeServiceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

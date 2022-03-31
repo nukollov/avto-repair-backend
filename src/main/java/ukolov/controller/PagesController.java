@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.view.RedirectView;
 
+/**
+ * Контроллер, отслеживающий все запросы с клиента
+ * */
 @Controller
 public class PagesController {
 
@@ -44,7 +47,6 @@ public class PagesController {
     }
 
     /**
-     *
      * метод добавления новой услуги
      */
     @PostMapping("/addNewService")

@@ -6,6 +6,10 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
+/**
+ * Форма для создания новой Услуги или редактирования уже существующей
+ * */
 public class ServiceForm {
 
     private Long id;

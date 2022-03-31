@@ -14,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Сервис для услуги
+ * */
 @Service
 public class ServiceService {
 
@@ -26,18 +29,30 @@ public class ServiceService {
     @Autowired
     TypeServiceRepository typeServiceRepository;
 
+    /**
+     * метод нахождения всех услуг
+     * */
     public List<ServiceEntity> findAll() {
         return serviceRepository.findAll();
     }
 
+    /**
+     * метод нахождения услуги по id
+     * */
     public ServiceEntity findById(Long id) {
         return serviceRepository.findById(id).orElse(null);
     }
 
+    /**
+     * метод удаления услуги по id
+     * */
     public void deleteById(Long id) {
         serviceRepository.deleteById(id);
     }
 
+    /**
+     * метод добавления новой услуги
+     * */
     @Transactional
     public void save(ServiceForm serviceForm) {
         Optional<AvtoRepairEntity> avtoRepairEntity = avtoRepairRepository.findById(serviceForm.getAutoRepairId());
@@ -52,6 +67,9 @@ public class ServiceService {
         }
     }
 
+    /**
+     * метод редактирования услуги
+     * */
     @Transactional
     public void update(ServiceForm serviceForm) {
         Optional<ServiceEntity> serviceEntityOptional =  serviceRepository.findById(serviceForm.getId());

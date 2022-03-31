@@ -17,6 +17,9 @@ import java.util.List;
 @Setter
 @Table(name = "avto_repair")
 
+/**
+ * Класс, описывающий сущность Автомастерская
+ * */
 public class AvtoRepairEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
