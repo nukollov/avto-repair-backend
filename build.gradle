@@ -23,7 +23,10 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
 
     testImplementation 'junit:junit:4.11'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.6'
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-test'
 }
 
 test {

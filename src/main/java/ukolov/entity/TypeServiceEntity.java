@@ -28,6 +28,11 @@ public class TypeServiceEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "photo")
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] photo;
+
     @OneToMany(mappedBy = "typeService")
     List<ServiceEntity> services;
 }

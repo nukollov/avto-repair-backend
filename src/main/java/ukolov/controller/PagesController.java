@@ -29,10 +29,16 @@ public class PagesController {
     /**
      * метод загрузки главной страницы - страницы услуг
      */
-    @GetMapping("/")
-    public String loadallServicesAdmin(Model model) {
+    @GetMapping("/allServicesAdmin")
+    public String loadAllServicesAdmin(Model model) {
         model.addAttribute("services", serviceService.findAll());
         return "allServicesAdmin";
+    }
+
+    @GetMapping("/allServices")
+    public String loadAllServices(Model model) {
+        model.addAttribute("services", serviceService.findAll());
+        return "allServices";
     }
 
     /**
